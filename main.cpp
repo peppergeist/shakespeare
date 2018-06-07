@@ -9,11 +9,11 @@ int count_quotes_in_file(std::string filename)
 {
     std::ifstream file("dat/" + filename);
     std::string line;
-    int total_quotes = 0;
+    int total_quotes = -1;
 
     while (std::getline(file, line))
     {
-        if (line == "<quote>")
+        if (line == "%")
         {
             ++total_quotes;
         }
@@ -38,20 +38,23 @@ std::string get_random_quote_from_filename(std::string filename)
 
     while (std::getline(file, line) && !quote_read)
     {
-        if (line == "<quote>")
+        if (line == "%")
         {
             if (quotes_counted == quote_index)
             {
                 /* read lines until entire quote is consumed */
                 while(std::getline(file, line) && !quote_read)
                 {
-                    if (line == "</quote>")
+                    if (line == "%")
                     {
                         quote_read = true;
                     }
                     else
                     {
-                        quote += line + "\n";
+                        if (line[0] != '#')
+                        {
+                            quote += line + "\n";
+                        }
                     }
                 }
             }
@@ -99,7 +102,7 @@ int main(int argc, char * argv[])
     srand(time(NULL));
     std::vector<std::string> filenames = fetch_files("dat");
     std::string filename = filenames[rand() % filenames.size()];
-    printf("%s", get_random_quote_from_filename("hamlet.xml").c_str());
+    printf("%s", get_random_quote_from_filename("hamlet").c_str());
 
 
     printf("\n");
