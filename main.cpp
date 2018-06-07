@@ -13,7 +13,7 @@ int count_quotes_in_file(std::string filename)
 
     while (std::getline(file, line))
     {
-        if (line == "%")
+        if (line[0] == '%')
         {
             ++total_quotes;
         }
@@ -38,14 +38,14 @@ std::string get_random_quote_from_filename(std::string filename)
 
     while (std::getline(file, line) && !quote_read)
     {
-        if (line == "%")
+        if (line[0] == '%')
         {
             if (quotes_counted == quote_index)
             {
                 /* read lines until entire quote is consumed */
                 while(std::getline(file, line) && !quote_read)
                 {
-                    if (line == "%")
+                    if (line[0] == '%')
                     {
                         quote_read = true;
                     }
@@ -68,43 +68,31 @@ std::string get_random_quote_from_filename(std::string filename)
     return quote;
 }
 
-std::vector<std::string> fetch_files(std::string directory)
+std::vector<std::string> fetch_files_from_group(std::string group)
 {
-    DIR *dir;
-    struct dirent *ent;
+    std::ifstream group_file("dat/groups/" + group);
+    std::string line;
     std::vector<std::string> filenames;
 
-    if ((dir = opendir(directory.c_str())) != NULL)
+    while (std::getline(group_file, line))
     {
-        while ((ent = readdir (dir)) != NULL)
+        if (line[0] != '#')
         {
-            /* ignore directories like . and .. */
-            if (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, ".."))
-            {
-                continue;
-            }
-
-            filenames.push_back(ent->d_name);
+            filenames.push_back(line);
         }
     }
-    else
-    {
-        perror("Could not open directory.");
-        exit(1);
-    }
 
-    closedir(dir);
     return filenames;
 }
 
 int main(int argc, char * argv[])
 {
     srand(time(NULL));
-    std::vector<std::string> filenames = fetch_files("dat");
+    std::string group = "all"; /* default to fetching all files */
+
+    std::vector<std::string> filenames = fetch_files_from_group(group);
     std::string filename = filenames[rand() % filenames.size()];
-    printf("%s", get_random_quote_from_filename("hamlet").c_str());
+    printf("%s\n", get_random_quote_from_filename(filename).c_str());
 
-
-    printf("\n");
     return 0;
 }
