@@ -1,7 +1,9 @@
+#include <chrono>
 #include <cstdlib>
 #include <dirent.h>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -85,13 +87,23 @@ std::vector<std::string> fetch_files_from_group(std::string group)
     return filenames;
 }
 
+int get_random_number(int min, int max)
+{
+    std::default_random_engine generator;
+    std::chrono::milliseconds ms =
+    std::chrono::duration_cast<std::chrono::milliseconds>(
+    std::chrono::system_clock::now().time_since_epoch());
+    generator.seed(ms.count());
+    std::uniform_int_distribution<int> distribution(min, max);
+    return distribution(generator);
+}
+
 int main(int argc, char * argv[])
 {
-    srand(time(NULL));
     std::string group = "all"; /* default to fetching all files */
-
     std::vector<std::string> filenames = fetch_files_from_group(group);
-    std::string filename = filenames[rand() % filenames.size()];
+    std::string filename = filenames[
+        get_random_number(0, filenames.size() - 1)];
     printf("%s\n", get_random_quote_from_filename(filename).c_str());
 
     return 0;
