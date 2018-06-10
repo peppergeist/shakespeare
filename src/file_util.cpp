@@ -1,11 +1,9 @@
-#include <chrono>
-#include <cstdlib>
-#include <dirent.h>
 #include <fstream>
-#include <iostream>
-#include <random>
 #include <string>
 #include <vector>
+
+#include "file_util.h"
+#include "random_gen.h"
 
 int count_quotes_in_file(std::string filename)
 {
@@ -32,7 +30,7 @@ int count_quotes_in_file(std::string filename)
 std::string get_random_quote_from_filename(std::string filename)
 {
     int quotes_counted = 0;
-    int quote_index = rand() % count_quotes_in_file(filename);
+    int quote_index = get_random_number(0, count_quotes_in_file(filename) - 1);
     bool quote_read = false;
     std::ifstream file("dat/" + filename);
     std::string line;
@@ -85,26 +83,4 @@ std::vector<std::string> fetch_files_from_group(std::string group)
     }
 
     return filenames;
-}
-
-int get_random_number(int min, int max)
-{
-    std::default_random_engine generator;
-    std::chrono::milliseconds ms =
-    std::chrono::duration_cast<std::chrono::milliseconds>(
-    std::chrono::system_clock::now().time_since_epoch());
-    generator.seed(ms.count());
-    std::uniform_int_distribution<int> distribution(min, max);
-    return distribution(generator);
-}
-
-int main(int argc, char * argv[])
-{
-    std::string group = "all"; /* default to fetching all files */
-    std::vector<std::string> filenames = fetch_files_from_group(group);
-    std::string filename = filenames[
-        get_random_number(0, filenames.size() - 1)];
-    printf("%s\n", get_random_quote_from_filename(filename).c_str());
-
-    return 0;
 }
