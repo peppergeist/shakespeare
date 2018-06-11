@@ -1,3 +1,5 @@
+#include <chrono>
+#include <random>
 #include "random_gen.h"
 
 int get_random_number(int min, int max)

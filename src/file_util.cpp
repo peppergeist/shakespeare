@@ -1,13 +1,18 @@
 #include <fstream>
-#include <string>
+#include <iostream>
 #include <vector>
-
 #include "file_util.h"
 #include "random_gen.h"
 
 int count_quotes_in_file(std::string filename)
 {
     std::ifstream file("dat/" + filename);
+    if (!file.good())
+    {
+        std::cout << "[ERROR] Cannot open specific file to get quote."
+            << std::endl;
+        exit(EXIT_FAILURE);
+    }
     std::string line;
     int total_quotes = -1;
 
