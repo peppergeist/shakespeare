@@ -4,7 +4,7 @@ SRCDIR      := src
 INCDIR      := inc
 BUILDDIR    := obj
 TARGETDIR   := bin
-RESDIR      := res
+DATDIR      := dat
 SRCEXT      := cpp
 DEPEXT      := d
 OBJEXT      := o
@@ -21,10 +21,6 @@ all: $(TARGET)
 # remake
 remake: cleaner all
 
-# resources -> target dir
-resources: directories
-	@cp $(RESDIR)/* $(TARGETDIR)/
-
 # make directories
 directories:
 	@mkdir -p $(TARGETDIR)
@@ -37,6 +33,15 @@ clean:
 # clean all
 cleaner: clean
 	@$(RM) -rf $(TARGETDIR)
+
+# install to path
+install: $(TARGET)
+	@cp $(TARGETDIR)/$(TARGET) /usr/local/bin
+	@cp -R . /usr/local/opt/shakespeare-quote
+
+uninstall:
+	rm -f /usr/local/bin/shakespeare-quote
+	rm -rf /usr/local/opt/shakespeare-quote
 
 # pull dependencies
 -include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
@@ -56,4 +61,4 @@ $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@rm -f $(BUILDDIR)/$*.$(DEPEXT).tmp
 
 # non-file targets
-.PHONY: all remake clean cleaner resources
+.PHONY: all remake clean cleaner
