@@ -1,5 +1,5 @@
 #include <string>
-#include "random_gen.h"
+#include <vector>
 
 int count_quotes_in_file(std::string filename);
 std::string get_random_quote_from_filename(std::string filename);
