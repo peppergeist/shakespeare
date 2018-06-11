@@ -9,11 +9,12 @@ SRCEXT      := cpp
 DEPEXT      := d
 OBJEXT      := o
 CFLAGS      := -Wall -O3 -g
-LIB         :=
 INC         := -I$(INCDIR) -I/usr/local/include
 INCDEP      := -I$(INCDIR)
 SOURCES     := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+INSTALLBIN  := /usr/local/bin
+INSTALLDIR  := /usr/local/opt
 
 # default make
 all: $(TARGET)
@@ -36,19 +37,19 @@ cleaner: clean
 
 # install to path
 install: $(TARGET)
-	@cp $(TARGETDIR)/$(TARGET) /usr/local/bin
-	@cp -R . /usr/local/opt/shakespeare-quote
+	@cp $(TARGETDIR)/$(TARGET) $(INSTALLBIN)
+	@cp -R . $(INSTALLDIR)/$(TARGET)
 
 uninstall:
-	rm -f /usr/local/bin/shakespeare-quote
-	rm -rf /usr/local/opt/shakespeare-quote
+	rm -f $(INSTALLBIN)/$(TARGET)
+	rm -rf $(INSTALLDIR)/$(TARGET)
 
 # pull dependencies
 -include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
 
 # link
 $(TARGET): $(OBJECTS)
-	$(CC) -o $(TARGETDIR)/$(TARGET) $^ $(LIB)
+	$(CC) -o $(TARGETDIR)/$(TARGET) $^
 
 # compile
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
