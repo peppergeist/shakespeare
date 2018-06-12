@@ -1,5 +1,6 @@
 TODO
     -- add poems to works
+    -- make filename parsing case- and space-insensitive
     -- Collect quotes for the following files:
 a-midsummer-night's-dream
 all's-well-that-ends-well
@@ -28,7 +29,6 @@ the-comedy-of-errors
 the-merchant-of-venice
 the-merry-wives-of-windsor
 the-taming-of-the-shrew
-the-tempest
 the-two-noble-kinsmen
 the-winter's-tale
 timon-of-athens
