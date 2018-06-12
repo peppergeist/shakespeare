@@ -1,63 +1,35 @@
-#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
 #include "file_util.h"
+#include "options.h"
 #include "random_gen.h"
 
-std::string parse_flags(int argc, char * argv[])
-{
-    if (argc == 1)
-    {
-        return "all";
-    }
-    if (argc == 2)
-    {
-        std::cout << "[ERROR] Too few arguments provided to parse."
-            << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    else if (argc > 3)
-    {
-        std::cout << "[ERROR] Too many arguments provided to parse."
-            << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    if (!strcmp(argv[1], "-g") || !strcmp(argv[1],  "--group"))
-    {
-        return argv[2];
-    }
-    else if (!strcmp(argv[1], "-w") || !strcmp(argv[1], "--work"))
-    {
-        return std::string(std::string("%") + argv[2]);
-    }
-
-    /* if all else fails, return "all" anyway */
-    return "all";
-}
+#define MAJOR_VERSION 0.9
+#define MINOR_VERSION 0
 
 int main(int argc, char * argv[])
 {
-
-    std::string group = "all"; /* default to fetching all files */
-    if (argc > 1)
+    if (parse_for_version(argc, argv))
     {
-        group = parse_flags(argc, argv);
+        std::cout << "shakespeare-quote, version " << MAJOR_VERSION << "."
+            << MINOR_VERSION << std::endl << std::endl;
     }
 
-    /* '%' identifier means only pick from specific file instead of group */
-    if (group[0] == '%')
+    bool debug_on = parse_for_debug(argc, argv);
+
+    std::string filename = parse_for_work(argc, argv);
+    if (filename != "")
     {
-        std::cout << get_random_quote_from_filename(group.substr(1))
-            << std::endl;
+        std::cout << get_random_quote_from_filename(filename) << std::endl;
     }
     else
     {
-        std::vector<std::string> filenames = fetch_files_from_group(group);
-        std::string filename = filenames[
-        get_random_number(0, filenames.size() - 1)];
-        std::cout << get_random_quote_from_filename(filename) << std::endl;
+        filename = parse_for_group(argc, argv); /* by default will be "all" */
+        std::vector<std::string> filenames = fetch_files_from_group(filename);
+        std::cout <<
+            get_random_quote_from_filename(filenames[
+                get_random_number(0, filenames.size() - 1)]) << std::endl;
     }
 
     return 0;
