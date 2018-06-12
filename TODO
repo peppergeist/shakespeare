@@ -1,5 +1,4 @@
 TODO
-    -- add poems to works
     -- make filename parsing case- and space-insensitive
     -- Collect quotes for the following files:
 a-midsummer-night's-dream
@@ -16,7 +15,6 @@ henry-viii
 julius-caesar
 king-lear
 love's-labour's-lost
-macbeth
 measure-for-measure
 much-ado-about-nothing
 othello
@@ -24,7 +22,6 @@ pericles,-prince-of-tyre
 richard-ii
 richard-iii
 romeo-and-juliet
-sonnets
 the-comedy-of-errors
 the-merchant-of-venice
 the-merry-wives-of-windsor
