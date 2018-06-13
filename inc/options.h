@@ -1,10 +1,23 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include <iostream>
 #include <string>
+
+#define DBOUT( x )  if (options::debug_mode_on) \
+                    { std::cout << "[DEBUG] " << x << std::endl; }
 
 namespace options
 {
+
+static int major_version = 0;
+static int minor_version = 9;
+
+extern bool debug_mode_on; /* defined in options.cpp */
+
+static std::string primary_data_path = "/usr/local/opt/shakespeare-quote/dat/";
+static std::string secondary_data_path = "dat/";
+
 /**
  * @brief      Parses input for group flag, returns it if it is present.
  *

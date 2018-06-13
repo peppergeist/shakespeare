@@ -5,6 +5,15 @@
 #include <vector>
 
 /**
+ * @brief      Gets the specific file path for a given filename.
+ *
+ * @param[in]  filename  The filename to find the path for.
+ *
+ * @return     The full path of the given filename.
+ */
+std::string get_file_path_from_filename(std::string filename);
+
+/**
  * @brief      Counts the number of quotes in a file.
  *
  * @param[in]  filename  The filename to count the quotes in.

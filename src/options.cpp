@@ -2,6 +2,8 @@
 #include <string>
 #include "options.h"
 
+bool options::debug_mode_on = false;
+
 std::string options::parse_for_group(int argc, char * argv[])
 {
     for (int i = 1; i < argc; ++i)
