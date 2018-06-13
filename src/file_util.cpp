@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -6,6 +7,24 @@
 #include "file_util.h"
 #include "options.h"
 #include "random_gen.h"
+
+std::string format_filename(std::string filename)
+{
+    DBOUT("Converting filename " << filename << ".");
+    std::transform(filename.begin(), filename.end(),
+        filename.begin(), ::tolower);
+    for (int i = 0; i < filename.length(); ++i)
+    {
+        if (filename[i] == ' ')
+        {
+            filename[i] = '-';
+        }
+    }
+
+    DBOUT("Filename converted to " << filename << ".");
+
+    return filename;
+}
 
 std::string get_file_path_from_filename(std::string filename)
 {

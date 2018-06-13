@@ -21,6 +21,7 @@ int main(int argc, char * argv[])
     std::string filename = options::parse_for_work(argc, argv);
     if (filename != "")
     {
+        filename = format_filename(filename);
         DBOUT("Work specified: " << filename << ".");
         std::cout << get_random_quote_from_filename(filename) << std::endl;
     }
@@ -28,6 +29,7 @@ int main(int argc, char * argv[])
     {
         DBOUT("Work not specified.");
         filename = options::parse_for_group(argc, argv);
+        filename = format_filename(filename);
         DBOUT("Fetching files from group " << filename << ".");
         std::vector<std::string> filenames = fetch_files_from_group(filename);
         std::cout <<
