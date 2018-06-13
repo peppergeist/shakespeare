@@ -1,5 +1,10 @@
+#ifndef OPTIONS_H
+#define OPTIONS_H
+
 #include <string>
 
+namespace options
+{
 /**
  * @brief      Parses input for group flag, returns it if it is present.
  *
@@ -39,3 +44,6 @@ bool parse_for_debug(int argc, char * argv[]);
  * @return     True if version flag is present, false otherwise.
  */
 bool parse_for_version(int argc, char * argv[]);
+};
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef RANDOM_GEN_H
+#define RANDOM_GEN_H
 
 /**
  * @brief      Generates a random number between min and max, inclusive.
@@ -8,3 +10,5 @@
  * @return     A random number from min to max.
  */
 int get_random_number(int min, int max);
+
+#endif

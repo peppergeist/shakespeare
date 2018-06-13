@@ -1,3 +1,6 @@
+#ifndef FILE_UTIL_H
+#define FILE_UTIL_H
+
 #include <string>
 #include <vector>
 
@@ -27,3 +30,5 @@ std::string get_random_quote_from_filename(std::string filename);
  * @return     A vector of all filenames to fetch a quote from.
  */
 std::vector<std::string> fetch_files_from_group(std::string group);
+
+#endif
