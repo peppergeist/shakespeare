@@ -2,7 +2,7 @@
 #include <string>
 #include "options.h"
 
-std::string parse_for_group(int argc, char * argv[])
+std::string options::parse_for_group(int argc, char * argv[])
 {
     for (int i = 1; i < argc; ++i)
     {
@@ -24,7 +24,7 @@ std::string parse_for_group(int argc, char * argv[])
     return "all";
 }
 
-std::string parse_for_work(int argc, char * argv[])
+std::string options::parse_for_work(int argc, char * argv[])
 {
     for (int i = 1; i < argc; ++i)
     {
@@ -46,7 +46,7 @@ std::string parse_for_work(int argc, char * argv[])
     return "";
 }
 
-bool parse_for_debug(int argc, char * argv[])
+bool options::parse_for_debug(int argc, char * argv[])
 {
     for (int i = 1; i < argc; ++i)
     {
@@ -59,7 +59,7 @@ bool parse_for_debug(int argc, char * argv[])
     return false;
 }
 
-bool parse_for_version(int argc, char * argv[])
+bool options::parse_for_version(int argc, char * argv[])
 {
     for (int i = 1; i < argc; ++i)
     {
