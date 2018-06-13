@@ -8,11 +8,15 @@
 #include "options.h"
 #include "random_gen.h"
 
-std::string format_filename(std::string filename)
+std::string format_work_filename(std::string filename)
 {
-    DBOUT("Converting filename " << filename << ".");
+    DBOUT("Converting work filename " << filename << ".");
+
+    /* set all characters to lowercase */
     std::transform(filename.begin(), filename.end(),
         filename.begin(), ::tolower);
+
+    /* replace all spaces with hyphens */
     for (int i = 0; i < filename.length(); ++i)
     {
         if (filename[i] == ' ')
@@ -21,7 +25,39 @@ std::string format_filename(std::string filename)
         }
     }
 
-    DBOUT("Filename converted to " << filename << ".");
+    DBOUT("Work filename converted to " << filename << ".");
+
+    return filename;
+}
+
+std::string format_group_filename(std::string filename)
+{
+    DBOUT("Converting group filename " << filename << ".");
+
+    /* set all characters to lowercase */
+    std::transform(filename.begin(), filename.end(),
+        filename.begin(), ::tolower);
+
+    /* replace all spaces with hyphens */
+    for (int i = 0; i < filename.length(); ++i)
+    {
+        if (filename[i] == ' ')
+        {
+            filename[i] = '-';
+        }
+    }
+
+    /* change "-ies" suffix to "-y" */
+    if (filename.substr(filename.length() - 3) == "ies")
+    {
+        filename.replace(filename.length() - 3, 3, "y");
+    }
+    else if (filename.substr(filename.length() - 1) == "s")
+    {
+        filename.replace(filename.length() - 1, 1, "");
+    }
+
+    DBOUT("Group filename converted to " << filename << ".");
 
     return filename;
 }

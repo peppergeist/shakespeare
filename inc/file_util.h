@@ -5,13 +5,22 @@
 #include <vector>
 
 /**
- * @brief      Formats a filename to an expected format.
+ * @brief      Formats a work filename to an expected format.
  *
  * @param[in]  filename  The filename, unformatted or formatted.
  *
  * @return     The filename in all lowercase with hyphens instead of spaces.
  */
-std::string format_filename(std::string filename);
+std::string format_work_filename(std::string filename);
+
+/**
+ * @brief      Formats a group filename to an expected format.
+ *
+ * @param[in]  filename  The filename, unformatted or formatted.
+ *
+ * @return     The filename in all lowercase, no spaces, and no plurals.
+ */
+std::string format_group_filename(std::string filename);
 
 /**
  * @brief      Gets the specific file path for a given filename.
