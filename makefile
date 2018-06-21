@@ -17,7 +17,7 @@ INSTALLBIN  := /usr/local/bin
 INSTALLDIR  := /usr/local/opt
 
 # default make
-all: $(TARGET)
+all: directories $(TARGET)
 
 # remake
 remake: cleaner all
